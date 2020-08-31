@@ -24,19 +24,17 @@ y_test = torch.FloatTensor(y_test)
 class MultilayerPs(nn.Module):
     def __init__(self ):
         super(MultilayerPs, self).__init__()
-        self.fc1 = torch.nn.Linear(12 ,800)
-        self.fc2 = torch.nn.Linear(800,400)
-        self.out = torch.nn.Linear(400,1)
+        self.fc1 = torch.nn.Linear(12 ,600)
+        self.out = torch.nn.Linear(600,1)
         
     def forward(self, x):
         x = F.tanh(self.fc1(x))
-        x = F.tanh(self.fc2(x))
         x = F.sigmoid(self.out(x))
         return x
         
 model = MultilayerPs()
 criterion = torch.nn.BCELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr = 0.02)
+optimizer = torch.optim.SGD(model.parameters(), lr = 0.04)
 
 model.train()
 epochs = 50
