@@ -23,17 +23,22 @@ y_train = torch.FloatTensor(y_train)
 y_test = torch.FloatTensor(y_test)
 
 class RecurrentNN(nn.Module):
-    def __init__(self ):
+    def __init__(self,hidden_layer, hidden_dim ):
         super(RecurrentNN, self).__init__()
-        self.rnn = nn.RNN(12,400,1,batch_first = True,nonlinearity = 'tanh')
-        self.fc = nn.Linear(400,1)
+        self.hidden_layer = hidden_layer
+        self.hidden_dim = hidden_dim
+        self.rnn = nn.RNN(12,hidden_dim,hidden_layer,batch_first = True,nonlinearity = 'tanh')
+        self.fc = nn.Linear(hidden_dim,1)
         
     def forward(self, x):
-        out,hn = self.rnn(x)
+        h0 = Variable(torch.zeros(hidden_layer, x.size(0), hidden_dim))
+        out,hn = self.rnn(x,h0)
         out = F.sigmoid(self.fc(out))
         return out
     
-model = RecurrentNN()
+hidden_layer = 1
+hidden_dim = 400
+model = RecurrentNN(hidden_layer,hidden_dim)
 criterion = torch.nn.BCELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=.08)
         
