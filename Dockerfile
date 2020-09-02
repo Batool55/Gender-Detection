@@ -10,8 +10,6 @@ Run pip install Flask-RESTful
 Run pip install Flask
 Run pip install torch
 
-
-
 CMD python MSPs_model.py
 CMD python api.py 
 
