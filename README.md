@@ -1,2 +1,2 @@
 # Gender-Detection
-Solution to detect the gender from speech.
+Readme.pdf provide describtion of the solution.
